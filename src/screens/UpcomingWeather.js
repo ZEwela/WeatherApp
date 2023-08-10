@@ -38,6 +38,7 @@ const UpcomingWeather = ({ weatherData }) => {
           renderItem={renderItem}
           keyExtractor={(item) => item.dt_txt}
           ListEmptyComponent={<Empty />}
+          maxToRenderPerBatch={6}
         />
       </ImageBackground>
     </SafeAreaView>

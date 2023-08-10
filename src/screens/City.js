@@ -3,13 +3,14 @@ import {
   StyleSheet,
   Text,
   StatusBar,
-  View
+  View,
+  SafeAreaView
 } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import IconText from '../components/IconText'
+import moment from 'moment'
 
-const City = () => {
+const City = ({ weatherData }) => {
   const {
     container,
     image,
@@ -22,34 +23,35 @@ const City = () => {
     riseSetText,
     rowLayout
   } = styles
+  const { name, country, population, sunrise, sunset } = weatherData
+
   return (
     <SafeAreaView style={container}>
       <ImageBackground
-        source={require('../../assets/sunset-569093_1920.jpg')}
+        source={require('../../assets/village.jpeg')}
         style={image}
       >
-        <Text style={[cityText, cityName]}>London</Text>
-        <Text style={[cityText, countryName]}>UK</Text>
+        <Text style={[cityText, cityName]}>{name}</Text>
+        <Text style={[cityText, countryName]}>{country}</Text>
         <View style={[populationWrapper, rowLayout]}>
           <IconText
             iconName={'user'}
-            iconColor={'#f96b0a'}
-            bodyText={'8000'}
+            iconColor={'black'}
+            bodyText={`Population: ${population}`}
             bodyTextStyles={populationText}
           />
         </View>
         <View style={[riseSetWrapper, rowLayout]}>
           <IconText
             iconName={'sunrise'}
-            iconColor={'#fa751c'}
-            bodyText={'10:46:58 am'}
+            iconColor={'yellow'}
+            bodyText={moment(sunrise).format('h:mm a')}
             bodyTextStyles={riseSetText}
           />
-
           <IconText
             iconName={'sunset'}
-            iconColor={'#fa751c'}
-            bodyText={'17:26:15 pm'}
+            iconColor={'yellow'}
+            bodyText={moment(sunset).format('h:mm a')}
             bodyTextStyles={riseSetText}
           />
         </View>
@@ -62,8 +64,7 @@ export default City
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0
+    flex: 1
   },
   image: {
     flex: 1
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#f96b0a'
+    color: 'black'
   },
   cityName: {
     fontSize: 40
@@ -83,19 +84,20 @@ const styles = StyleSheet.create({
   },
   populationWrapper: {
     justifyContent: 'center',
-    marginTop: 30
+    marginTop: 15
   },
   populationText: {
-    fontSize: 25,
-    color: 'black'
+    fontSize: 30,
+    color: 'black',
+    fontWeight: 'bold'
   },
   riseSetWrapper: {
     justifyContent: 'space-around',
-    marginTop: 30
+    marginTop: 40
   },
   riseSetText: {
     fontSize: 25,
-    color: 'white'
+    color: 'yellow'
   },
   rowLayout: {
     flexDirection: 'row',

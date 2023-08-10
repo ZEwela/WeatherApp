@@ -11,6 +11,7 @@ const ListItem = ({ dt_txt, min, max, condition }) => {
       <Feather name={weatherType[condition]?.icon} size={50} color={'white'} />
       <View style={dateTextWrapper}>
         <Text style={date}>{moment(dt_txt).format('dddd')}</Text>
+        <Text style={date}>{moment(dt_txt).add(10, 'days').calendar()}</Text>
         <Text style={date}>{moment(dt_txt).format('h:mm a')}</Text>
       </View>
 

@@ -31,9 +31,10 @@ export const useGetWeather = () => {
         return
       }
       let location = await Location.getCurrentPositionAsync({})
-      console.log(location)
+
       setLat(location.coords.latitude)
       setLon(location.coords.longitude)
+
       await fetchWeatherData()
     })()
   }, [lat, lon])

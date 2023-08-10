@@ -23,7 +23,7 @@ const City = ({ weatherData }) => {
     riseSetText,
     rowLayout
   } = styles
-  const { name, country, population, sunrise, sunset } = weatherData
+  const { name, country, population, sunrise, sunset, timezone } = weatherData
 
   return (
     <SafeAreaView style={container}>
@@ -45,13 +45,19 @@ const City = ({ weatherData }) => {
           <IconText
             iconName={'sunrise'}
             iconColor={'yellow'}
-            bodyText={moment(sunrise).format('h:mm a')}
+            bodyText={moment
+              .utc(sunrise, 'X')
+              .add(timezone, 'seconds')
+              .format('HH:mm a')}
             bodyTextStyles={riseSetText}
           />
           <IconText
             iconName={'sunset'}
             iconColor={'yellow'}
-            bodyText={moment(sunset).format('h:mm a')}
+            bodyText={moment
+              .utc(sunset, 'X')
+              .add(timezone, 'seconds')
+              .format('HH:mm a')}
             bodyTextStyles={riseSetText}
           />
         </View>
